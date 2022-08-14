@@ -16,7 +16,21 @@ def test_delete_project(app):
     project = random.choice(old_projects)
     app.project.delete_project(project_id=project.project_id)
     app.project.open_projects_page()
-    new_project = app.project.get_projects()
-    assert len(old_projects) - 1 == len(new_project)
+    new_projects = app.project.get_projects()
+    assert len(old_projects) - 1 == len(new_projects)
     old_projects.remove(project)
-    assert sorted(old_projects, key=Project.id_or_max) == sorted(new_project, key=Project.id_or_max)
+    assert sorted(old_projects, key=Project.id_or_max) == sorted(new_projects, key=Project.id_or_max)
+
+
+def test_delete_project_with_soap(app):
+    if len(app.soap.get_projects('administrator', 'administrator')) == 0:
+        app.project.create_project(Project(project_name='Test', project_description='Test'))
+    app.project.open_projects_page()
+    old_projects = app.soap.get_projects('administrator', 'administrator')
+    project = random.choice(old_projects)
+    app.project.delete_project(project_id=project.project_id)
+    app.project.open_projects_page()
+    new_projects = app.soap.get_projects('administrator', 'administrator')
+    assert len(old_projects) - 1 == len(new_projects)
+    old_projects.remove(project)
+    assert sorted(old_projects, key=Project.id_or_max) == sorted(new_projects, key=Project.id_or_max)

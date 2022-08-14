@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from Fixture.session import SessionHelper
 from Fixture.project import ProjectHelper
+from Fixture.soap import SoapHelper
 
 
 class Application:
@@ -17,6 +18,7 @@ class Application:
             raise ValueError(f"Unrecognized browser - {browser}")
         self.session = SessionHelper(self.webdriver)
         self.project = ProjectHelper(self.webdriver)
+        self.soap = SoapHelper(self.webdriver)
         self.base_url = base_url
 
     def open_home_page(self):
