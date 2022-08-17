@@ -1,6 +1,7 @@
 {
   "web": {
-    "baseUrl": "http://localhost:8080/mantisbt-2.25.5/"
+    "server": "http://localhost:8080",
+    "project": "/mantisbt-2.25.5/"
   },
   "webadmin": {
     "username": "administrator",

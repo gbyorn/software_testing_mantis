@@ -4,7 +4,8 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 
 class SessionHelper:
 
-    def __init__(self, app: WebDriver):
+    def __init__(self, app: WebDriver, project_url: str):
+        self.project_url = project_url
         self.app = app
 
     def login(self, username: str, password: str):
@@ -18,7 +19,7 @@ class SessionHelper:
         self.app.find_element(By.XPATH, "//input[@value='Вход']").click()
 
     def logout(self):
-        self.app.find_element(By.XPATH, "//li/a[@href='/mantisbt-2.25.5/logout_page.php']")
+        self.app.find_element(By.XPATH, f"//li/a[@href='{self.project_url}logout_page.php']")
 
     def ensure_login(self, username: str, password: str):
         if self.is_logged_in():

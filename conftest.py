@@ -23,7 +23,8 @@ def app(request):
     browser = request.config.getoption("--browser")
     web_config = load_config(request.config.getoption("--target"))
     if new_app is None or not new_app.is_valid():
-        new_app = Application(browser=browser, base_url=web_config['web']['baseUrl'])
+        new_app = Application(browser=browser, server_url=web_config['web']['server'],
+                              project_url=web_config['web']['project'])
     new_app.open_home_page()
     new_app.session.ensure_login(username=web_config['webadmin']['username'],
                                  password=web_config['webadmin']['password'])

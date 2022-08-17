@@ -5,8 +5,9 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 
 class ProjectHelper:
 
-    def __init__(self, app: WebDriver):
+    def __init__(self, app: WebDriver, project_url: str):
         self.app = app
+        self.project_url = project_url
         self.project_cache = None
 
     def create_project(self, project: Project):
@@ -18,8 +19,8 @@ class ProjectHelper:
 
     def open_projects_page(self):
         if not (self.app.current_url.endswith("manage_proj_page.php")):
-            self.app.find_element(By.XPATH, "//li/a[@href='/mantisbt-2.25.5/manage_overview_page.php']").click()
-            self.app.find_element(By.XPATH, "//li/a[@href='/mantisbt-2.25.5/manage_proj_page.php']").click()
+            self.app.find_element(By.XPATH, f"//li/a[@href='{self.project_url}manage_overview_page.php']").click()
+            self.app.find_element(By.XPATH, f"//li/a[@href='{self.project_url}manage_proj_page.php']").click()
 
     def write_data(self, name: str | None = None, description: str | None = None):
         self.app.find_element(By.NAME, "name").click()
