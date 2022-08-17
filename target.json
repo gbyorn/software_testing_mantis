@@ -6,5 +6,9 @@
   "webadmin": {
     "username": "administrator",
     "password": "administrator"
+  },
+  "soap": {
+    "username": "administrator",
+    "password": "administrator"
   }
 }

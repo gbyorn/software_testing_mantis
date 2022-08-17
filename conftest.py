@@ -24,7 +24,8 @@ def app(request):
     web_config = load_config(request.config.getoption("--target"))
     if new_app is None or not new_app.is_valid():
         new_app = Application(browser=browser, server_url=web_config['web']['server'],
-                              project_url=web_config['web']['project'])
+                              project_url=web_config['web']['project'],
+                              soap_credentials=web_config['soap'])
     new_app.open_home_page()
     new_app.session.ensure_login(username=web_config['webadmin']['username'],
                                  password=web_config['webadmin']['password'])

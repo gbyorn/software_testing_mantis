@@ -23,14 +23,14 @@ def test_delete_project(app):
 
 
 def test_delete_project_with_soap(app):
-    if len(app.soap.get_projects('administrator', 'administrator')) == 0:
+    if len(app.soap.get_projects()) == 0:
         app.project.create_project(Project(project_name='Test', project_description='Test'))
     app.project.open_projects_page()
-    old_projects = app.soap.get_projects('administrator', 'administrator')
+    old_projects = app.soap.get_projects()
     project = random.choice(old_projects)
     app.project.delete_project(project_id=project.project_id)
     app.project.open_projects_page()
-    new_projects = app.soap.get_projects('administrator', 'administrator')
+    new_projects = app.soap.get_projects()
     assert len(old_projects) - 1 == len(new_projects)
     old_projects.remove(project)
     assert sorted(old_projects, key=Project.id_or_max) == sorted(new_projects, key=Project.id_or_max)
